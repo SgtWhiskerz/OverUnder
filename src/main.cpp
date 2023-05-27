@@ -1,4 +1,9 @@
 #include "main.h"
+#include "okapi/api.hpp"
+#include "okapi/api/device/motor/abstractMotor.hpp"
+#include "okapi/api/util/mathUtil.hpp"
+#include "okapi/impl/device/controllerUtil.hpp"
+#include "okapi/impl/device/motor/motorGroup.hpp"
 
 /**
  * A callback function for LLEMU's center button.
@@ -61,21 +66,36 @@ void autonomous() {}
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-  pros::Controller master(pros::E_CONTROLLER_MASTER);
-  pros::Motor left_mtr(1);
-  pros::Motor right_mtr(2);
+  using namespace okapi;
+  Controller main(ControllerId::master);
+
+  MotorGroup left({{1, false, AbstractMotor::gearset::green,
+                    AbstractMotor::encoderUnits::counts},
+                   {9, false, AbstractMotor::gearset::green,
+                    AbstractMotor::encoderUnits::counts}});
+
+  MotorGroup right({{2, false, AbstractMotor::gearset::green,
+                     AbstractMotor::encoderUnits::counts},
+                    {10, false, AbstractMotor::gearset::green,
+                     AbstractMotor::encoderUnits::counts}});
+
+  auto lGear = static_cast<double>(left.getGearing());
+  auto rGear = static_cast<double>(right.getGearing());
+
+  constexpr double dZone = 0.05; // joystick deadzone
+  constexpr short loopDelay = 20;
 
   while (true) {
-    pros::lcd::print(0, "%d %d %d",
-                     (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
-                     (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
-                     (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
-    int left = master.get_analog(ANALOG_LEFT_Y);
-    int right = master.get_analog(ANALOG_RIGHT_Y);
+    double lPow =
+        deadband(main.getAnalog(ControllerAnalog::leftY), dZone * -1, dZone) *
+        lGear;
+    double rPow =
+        deadband(main.getAnalog(ControllerAnalog::rightY), dZone * -1, dZone) *
+        rGear;
 
-    left_mtr = left;
-    right_mtr = right;
+    left.moveVelocity(lPow);
+    right.moveVelocity(rPow);
 
-    pros::delay(20);
+    pros::delay(loopDelay);
   }
 }
