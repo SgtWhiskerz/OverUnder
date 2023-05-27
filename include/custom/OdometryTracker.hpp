@@ -27,7 +27,7 @@ public:
     double y = 0.0;
   };
 
-  OdometryTracker(std::array<okapi::RotationSensor, 3>, SensorOffset, float);
+  OdometryTracker(std::array<okapi::RotationSensor, 3>, SensorOffset, double);
 
   void tick();
 
