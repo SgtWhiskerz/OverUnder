@@ -25,10 +25,10 @@ MotorMonitor::MotorMonitor(
 
 MotorMonitor::~MotorMonitor() { lv_obj_del(chart); }
 
-void MotorMonitor::addMotor(
-    const std::pair<std::string, okapi::AbstractMotor *> &motor) {
-  list[motor.second] =
-      std::make_pair(motor.first, lv_chart_add_series(chart, LV_COLOR_CYAN));
+MotorMonitor &MotorMonitor::addMotor(const std::string &name,
+                                     okapi::AbstractMotor *motor) {
+  list[motor] = std::make_pair(name, lv_chart_add_series(chart, LV_COLOR_CYAN));
+  return *this;
 }
 
 void MotorMonitor::tick() {

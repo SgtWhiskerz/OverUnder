@@ -31,7 +31,7 @@ public:
       lv_obj_t *);
   ~MotorMonitor();
 
-  void addMotor(const std::pair<std::string, okapi::AbstractMotor *> &);
+  MotorMonitor &addMotor(const std::string &, okapi::AbstractMotor *);
 
   void tick();
 };
