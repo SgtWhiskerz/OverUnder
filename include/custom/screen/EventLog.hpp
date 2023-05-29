@@ -9,7 +9,7 @@ private:
   lv_obj_t *log;
 
 public:
-  EventLog(lv_obj_t *, std::pair<short, short>, std::pair<short, short>);
+  EventLog(lv_obj_t *);
   ~EventLog();
 
   void addEntry(const std::string &, const std::string &);

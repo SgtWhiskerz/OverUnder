@@ -6,13 +6,7 @@
 
 constexpr short SCROLL_SPEED = 250;
 
-EventLog::EventLog(lv_obj_t *parent, std::pair<short, short> pos,
-                   std::pair<short, short> size)
-    : log(lv_page_create(parent, nullptr)) {
-  lv_obj_set_pos(log, pos.first, pos.second);
-  lv_obj_set_width(log, size.first);
-  lv_obj_set_height(log, size.second);
-}
+EventLog::EventLog(lv_obj_t *parent) : log(lv_page_create(parent, nullptr)) {}
 
 EventLog::~EventLog() { lv_obj_del(log); }
 
