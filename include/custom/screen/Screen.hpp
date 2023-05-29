@@ -1,5 +1,7 @@
 #pragma once
 
+#include "custom/screen/EventLog.hpp"
+#include "custom/screen/MotorMonitor.hpp"
 #include "display/lv_core/lv_obj.h"
 #include "pros/rtos.hpp"
 #include <vector>
@@ -12,9 +14,13 @@ class Screen {
 private:
   static const Screen *instance;
   static pros::Mutex mutex;
+  lv_obj_t *tabs;
+  EventLog *log;
+  MotorMonitor *mMonitor;
 
 protected:
-  Screen() = default;
+  Screen();
+  ~Screen();
 
 public:
   Screen(Screen &other) = delete;
