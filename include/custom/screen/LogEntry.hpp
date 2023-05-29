@@ -15,4 +15,9 @@ private:
 public:
   LogEntry(const std::string &, lv_obj_t *, const std::string &);
   ~LogEntry();
+
+  /**
+   * @returns lv_btn event display
+   */
+  lv_obj_t* getMsg();
 };

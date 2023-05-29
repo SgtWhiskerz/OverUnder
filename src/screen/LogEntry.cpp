@@ -20,3 +20,5 @@ LogEntry::~LogEntry() {
   lv_obj_del(btn);
   lv_obj_del(msgBox);
 }
+
+lv_obj_t *LogEntry::getMsg() { return btn; }
