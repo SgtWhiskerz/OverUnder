@@ -29,6 +29,8 @@ public:
   MotorMonitor(
       const std::vector<std::pair<std::string, okapi::AbstractMotor *>> &,
       lv_obj_t *);
+  MotorMonitor(lv_obj_t *);
+  MotorMonitor();
   ~MotorMonitor();
 
   MotorMonitor &addMotor(const std::string &, okapi::AbstractMotor *);

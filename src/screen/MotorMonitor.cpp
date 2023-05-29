@@ -11,7 +11,7 @@ constexpr short POINT_COUNT = 5;
 
 MotorMonitor::MotorMonitor(
     const std::vector<std::pair<std::string, okapi::AbstractMotor *>> &motors,
-    lv_obj_t *parent)
+    lv_obj_t *parent = lv_scr_act())
     : chart(lv_chart_create(parent, nullptr)) {
 
   lv_chart_set_point_count(chart, POINT_COUNT);
@@ -22,6 +22,11 @@ MotorMonitor::MotorMonitor(
         std::make_pair(entry.first, lv_chart_add_series(chart, LV_COLOR_CYAN));
   }
 }
+
+MotorMonitor::MotorMonitor(lv_obj_t *parent)
+    : chart(lv_chart_create(parent, nullptr)) {}
+
+MotorMonitor::MotorMonitor() : MotorMonitor(lv_scr_act()) {}
 
 MotorMonitor::~MotorMonitor() { lv_obj_del(chart); }
 
