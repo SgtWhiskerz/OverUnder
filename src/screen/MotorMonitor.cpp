@@ -7,11 +7,14 @@
 #include <utility>
 #include <vector>
 
+constexpr short POINT_COUNT = 5;
+
 MotorMonitor::MotorMonitor(
     const std::vector<std::pair<std::string, okapi::AbstractMotor *>> &motors,
-    lv_obj_t *parent) : chart(lv_chart_create(parent, nullptr)) {
-  
-  lv_chart_set_point_count(chart, 5);
+    lv_obj_t *parent)
+    : chart(lv_chart_create(parent, nullptr)) {
+
+  lv_chart_set_point_count(chart, POINT_COUNT);
 
   list.reserve(motors.size());
   for (const auto &entry : motors) { // randomize colors?
