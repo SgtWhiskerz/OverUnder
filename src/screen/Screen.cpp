@@ -15,6 +15,11 @@ Screen::Screen()
       log(new EventLog(lv_tabview_add_tab(tabs, "Event Log"))),
       mMonitor(new MotorMonitor(lv_tabview_add_tab(tabs, "Monitor"))) {}
 
+Screen::~Screen() {
+  // it shouldn't be this easy.
+  lv_obj_del(tabs);
+}
+
 const Screen *Screen::getScreen() {
   std::lock_guard<pros::Mutex> lock(mutex);
   if (instance == nullptr) {
