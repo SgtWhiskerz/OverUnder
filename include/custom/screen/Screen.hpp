@@ -12,7 +12,7 @@
  */
 class Screen {
 private:
-  static const Screen *instance;
+  static Screen *instance;
   static pros::Mutex mutex;
   lv_obj_t *tabs;
   EventLog *log;
@@ -26,5 +26,7 @@ public:
   Screen(Screen &other) = delete;
   void operator=(const Screen &other) = delete;
 
-  static const Screen *getScreen();
+  static Screen *getScreen();
+  EventLog *getLog();
+  MotorMonitor *getMonitor();
 };

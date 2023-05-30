@@ -7,7 +7,7 @@
 #include <mutex>
 #include <utility>
 
-const Screen *Screen::instance = nullptr;
+Screen *Screen::instance = nullptr;
 pros::Mutex Screen::mutex;
 
 Screen::Screen()
@@ -20,10 +20,14 @@ Screen::~Screen() {
   lv_obj_del(tabs);
 }
 
-const Screen *Screen::getScreen() {
+Screen *Screen::getScreen() {
   std::lock_guard<pros::Mutex> lock(mutex);
   if (instance == nullptr) {
     instance = new Screen();
   }
   return instance;
 }
+
+EventLog *Screen::getLog() { return log; }
+
+MotorMonitor *Screen::getMonitor() { return mMonitor; }
