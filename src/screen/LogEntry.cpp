@@ -16,6 +16,8 @@ LogEntry::LogEntry(const std::string &msg, lv_obj_t *parent,
   lv_label_set_text(label, msg.c_str());
   lv_obj_set_size(btn, lv_obj_get_width(parent),
                   lv_obj_get_height(label) + LABEL_PADDING);
+  lv_obj_t *lstChld = lv_obj_get_child_back(parent, nullptr);
+  lv_obj_align(btn, lstChld, LV_ALIGN_OUT_BOTTOM_MID, 0, 0);
 }
 
 LogEntry::~LogEntry() {
