@@ -5,14 +5,17 @@
 #include "display/lv_objx/lv_mbox.h"
 #include <string>
 
+constexpr short LABEL_PADDING = 30;
+
 LogEntry::LogEntry(const std::string &msg, lv_obj_t *parent,
                    const std::string & /*desc*/ = "")
-    : btn(lv_btn_create(parent, nullptr)),
-      msgBox(lv_mbox_create(parent, nullptr)) {
+    : btn(lv_btn_create(parent, nullptr)), msgBox(nullptr) {
   lv_obj_t *label = lv_label_create(
       btn, nullptr); // No idea if i should cache this in the object
                      // Memory leak can be avoided with the LVGL lib
   lv_label_set_text(label, msg.c_str());
+  lv_obj_set_size(btn, lv_obj_get_width(parent),
+                  lv_obj_get_height(label) + LABEL_PADDING);
 }
 
 LogEntry::~LogEntry() {
