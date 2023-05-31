@@ -14,6 +14,8 @@ MotorMonitor::MotorMonitor(
     lv_obj_t *parent = lv_scr_act())
     : chart(lv_chart_create(parent, nullptr)) {
 
+  lv_obj_set_size(chart, lv_obj_get_width(parent), lv_obj_get_height(parent));
+  lv_obj_align(chart, parent, LV_ALIGN_CENTER, 0, 0);
   lv_chart_set_point_count(chart, POINT_COUNT);
 
   list.reserve(motors.size());
