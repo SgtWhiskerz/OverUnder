@@ -23,8 +23,7 @@ MotorMonitor::MotorMonitor(
   }
 }
 
-MotorMonitor::MotorMonitor(lv_obj_t *parent)
-    : chart(lv_chart_create(parent, nullptr)) {}
+MotorMonitor::MotorMonitor(lv_obj_t *parent) : MotorMonitor({}, parent) {}
 
 MotorMonitor::MotorMonitor() : MotorMonitor(lv_scr_act()) {}
 
