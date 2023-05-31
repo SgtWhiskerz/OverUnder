@@ -12,6 +12,6 @@ EventLog::~EventLog() { lv_obj_del(log); }
 
 void EventLog::addEntry(const std::string &message,
                         const std::string &description) {
-  auto *newEvent = new LogEntry(message, lv_obj_get_parent(log), description);
+  auto *newEvent = new LogEntry(message, log, description);
   lv_page_focus(log, newEvent->getMsg(), SCROLL_SPEED);
 }
